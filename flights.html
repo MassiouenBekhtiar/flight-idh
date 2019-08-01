@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+
+
+    <!-- Local Flights results CSS -->
+    <link rel="stylesheet" href="./flights.css">
+
+
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.css" integrity="sha256-CCsHNqNAiVDlD9ZaCQkhAD/oPYnsbjCEVJoB1d+p6FQ=" crossorigin="anonymous" />
+
+    <!-- Jquery CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <title>Flights</title>
+</head>
+
+<body>
+    <div class="container">
+        <br><br> </div>
+    <div id="flightsContainer" class="container">
+        <div class="row hiden-lg hiden-md hiden-sm">
+            <div class="col-xs-12 col-sm-12">
+                <button class="btn btn-sm btn-filter " type="button" id="showFilter">Filters  <span id="filterBtnIcon" class="fa fa-caret-down"></span></button>
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function() {
+                if ($('#filtersFlights').attr('class') == 'col-col-lg-3 col-md-3 col-sm-3 col-xs-12') {
+                    $('#filterBtnIcon').removeClass('fa-caret-down').addClass('fa-caret-up');
+
+                } else {
+                    $('#filterBtnIcon').removeClass('fa-caret-up').addClass('fa-caret-down');
+                }
+            });
+            $('#showFilter').click(function() {
+                // Show filter
+                if ($('#filtersFlights').attr('class') == 'col-col-lg-3 col-md-3 col-sm-3 col-xs-12') {
+                    $('#filtersFlights').addClass('hiden-xs');
+                    $('#filterBtnIcon').removeClass('fa-caret-up').addClass('fa-caret-down');
+                    $('#reinitialiserFilter').addClass('hiden-xs');
+                } else {
+                    $('#filtersFlights').removeClass('hiden-xs');
+                    $('#filterBtnIcon').removeClass('fa-caret-down').addClass('fa-caret-up');
+                    $('#reinitialiserFilter').removeClass('hiden-xs');
+                }
+            });
+        </script>
+        <div class="row">
+            <form method="POST" id="filtersFlights" class="hiden-xs col-col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <div id="prixCol">
+                    <h4 id="prixFiltreTitre" class="text-center">Prix</h4>
+                    <div class="text-center">
+                        <p class="badge-price-indecator text-center"><span id="price-container">0</span><span id="currency-container">DZD</span></p>
+                    </div>
+                    <input type="range" id="price_ranges" min="1108" max="3375" value="3375">
+                </div>
+
+                <!-- campanies filtre card -->
+                <div id="compagniesCol" class="card-filter col-lg-12 col-md-12 col-sd-12 col-xs-12">
+                    <h4 id="compagniesFiltreTitre" class="text-center custom-title-filter">Compagnies</h4>
+                    <div class="row form-group custom-camp-row">
+                        <div class="col-lg-2 col-md-1 col-sm-1 col-xs-2">
+                            <div class="element-center-sm">
+                                <input type="checkbox" name="" id="compa1">
+                            </div>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-9 col-xs-10">
+                            <label for="compa1" class="row custom-label-filter">
+                                    <div class="col-lg-10 col-md-9 col-sm-8 col-xs-10">
+                                            <p class="compa-name">Air Algerie</p>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                        <div class="text-center">
+                                            <p class="badge">8</p>
+                                        </div>
+                                    </div>
+                                </label>
+                        </div>
+                    </div>
+                    <div class="row form-group custom-camp-row">
+                        <div class="col-lg-2 col-md-1 col-sm-1 col-xs-2">
+                            <div class="element-center-sm">
+                                <input type="checkbox" name="" id="compa2">
+                            </div>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-9 col-xs-10">
+                            <label for="compa2" class="row custom-label-filter">
+                                        <div class="col-lg-10 col-md-9 col-sm-8 col-xs-10">
+                                                <p class="compa-name">Air Algerie</p>
+                                        </div>
+                                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                            <div class="text-center">
+                                                <p class="badge">8</p>
+                                            </div>
+                                        </div>
+                                    </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="classeCol" class="card-filter col-lg-12 col-md-12 col-sd-12 col-xs-12">
+                    <h4 id="classeFiltreTitre" class="text-center custom-title-filter">Classe</h4>
+                    <div class="row form-group custom-camp-row">
+                        <div class="col-lg-2 col-md-1 col-sm-1 col-xs-2">
+                            <div class="element-center-sm">
+                                <input type="checkbox" name="" id="classe1">
+                            </div>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-9 col-xs-10">
+                            <label for="classe1" class="row custom-label-filter">
+                                        <div class="col-lg-10 col-md-9 col-sm-8 col-xs-10">
+                                                <p class="compa-name">Air Algerie</p>
+                                        </div>
+                                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                            <div class="text-center">
+                                                <p class="badge">8</p>
+                                            </div>
+                                        </div>
+                                    </label>
+                        </div>
+                    </div>
+
+                    <div class="row form-group custom-camp-row">
+                        <div class="col-lg-2 col-md-1 col-sm-1 col-xs-2">
+                            <div class="element-center-sm">
+                                <input type="checkbox" name="" id="classe2">
+                            </div>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-9 col-xs-10">
+                            <label for="classe2" class="row custom-label-filter">
+                                            <div class="col-lg-10 col-md-9 col-sm-8 col-xs-10">
+                                                    <p class="compa-name">Air Algerie</p>
+                                            </div>
+                                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                <div class="text-center">
+                                                    <p class="badge">8</p>
+                                                </div>
+                                            </div>
+                                        </label>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="trajet1Col" class="card-filter col-lg-12 col-md-12 col-sd-12 col-xs-12">
+
+                    <h4 id="prixFiltreTitre" class="text-center custom-title-filter">Trajet 1</h4>
+                    <div class="row form-group custom-camp-row">
+                        <div class="col-lg-2 col-md-1 col-sm-1 col-xs-2">
+                            <div class="element-center-sm">
+                                <input type="checkbox" name="" id="trajet1">
+                            </div>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-9 col-xs-10">
+                            <label for="trajet1" class="row custom-label-filter">
+                                        <div class="col-lg-10 col-md-9 col-sm-8 col-xs-10">
+                                                <p class="compa-name">Air Algerie</p>
+                                        </div>
+                                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                            <div class="text-center">
+                                                <p class="badge">8</p>
+                                            </div>
+                                        </div>
+                                    </label>
+                        </div>
+                    </div>
+                    <div class="row form-group custom-camp-row">
+                        <div class="col-lg-2 col-md-1 col-sm-1 col-xs-2">
+                            <div class="element-center-sm">
+                                <input type="checkbox" name="" id="trajet2">
+                            </div>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-9 col-xs-10">
+                            <label for="trajet2" class="row custom-label-filter">
+                                            <div class="col-lg-10 col-md-9 col-sm-8 col-xs-10">
+                                                    <p class="compa-name">Air Algerie</p>
+                                            </div>
+                                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                <div class="text-center">
+                                                    <p class="badge">8</p>
+                                                </div>
+                                            </div>
+                                        </label>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="trajet2Col" class="card-filter col-lg-12 col-md-12 col-sd-12 col-xs-12">
+
+                    <h4 id="prixFiltreTitre" class="text-center custom-title-filter">Trajet 2</h4>
+                    <div class="row form-group custom-camp-row">
+                        <div class="col-lg-2 col-md-1 col-sm-1 col-xs-2">
+                            <div class="element-center-sm">
+                                <input type="checkbox" name="" id="trajet21">
+                            </div>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-9 col-xs-10">
+                            <label for="trajet21" class="row custom-label-filter">
+                                        <div class="col-lg-10 col-md-9 col-sm-8 col-xs-10">
+                                                <p class="compa-name">Air Algerie</p>
+                                        </div>
+                                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                            <div class="text-center">
+                                                <p class="badge">8</p>
+                                            </div>
+                                        </div>
+                                    </label>
+                        </div>
+                    </div>
+
+                    <div class="row form-group custom-camp-row">
+                        <div class="col-lg-2 col-md-1 col-sm-1 col-xs-2">
+                            <div class="element-center-sm">
+                                <input type="checkbox" name="" id="trajet22">
+                            </div>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-9 col-xs-10">
+                            <label for="trajet22" class="row custom-label-filter">
+                                        <div class="col-lg-10 col-md-9 col-sm-8 col-xs-10">
+                                                <p class="compa-name">Air Algerie</p>
+                                        </div>
+                                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                            <div class="text-center">
+                                                <p class="badge">8</p>
+                                            </div>
+                                        </div>
+                                    </label>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+            <!-- js script reset the form button action -->
+            <script>
+                $(document).ready(function() {
+                    $('#reinitialiserFilter').click(function() {
+                        $('form')[0].reset();
+                    });
+                });
+            </script>
+
+            <!-- Diplay area for the flight search result-->
+            <div id="flightsResults" class="col-lg-9 col-md-9 col-sm-9 col-xs-12" style='background-color: none'>
+
+                <!-- Order and Filter controls buttons container-->
+                <div class="row">
+                    <!-- Filter control button contrainer-->
+                    <div class="col-lg-6 col-md-6 col-sm-5 col-xs-12 element-center-xs">
+                        <button class="btn btn-sm btn-order hiden-xs margin-top-xs" type="button" id="reinitialiserFilter"><span class="fa fa-undo"></span> Réinitialiser les filtres</button>
+                    </div>
+
+                    <!-- Order Flight control button container-->
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 col-lg-offset-3 col-md-offset-2 col-sm-offset-2 padding-top-xs">
+                        <div class="row">
+                            <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 ">
+                                <p class="trier-label"><strong>Trier par</strong></p>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 element-right-xs">
+                                <div class="dropdown ">
+                                    <button class="btn btn-order btn-sm dropdown-toggle" type="button" id="orderByPrice" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        Prix de vol
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu " aria-labelledby="dropdownMenu1">
+                                        <li><a href="#">Plus chers</a></li>
+                                        <li><a href="#">Moins chers</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- JS script for Dropdown -->
+                        <script>
+                            $(document).ready(function() {
+                                $('.dropdown-toggle').dropdown();
+                            });
+                        </script>
+                    </div>
+                </div>
+
+                <!-- One row result card -->
+                <div class="row-result-flaght row">
+                    <div class="card-filter col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class=" row">
+                            <div class="vertical-center col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                                <img class="img-responsive" src="./air-algerie-logo-og.png" alt="">
+                            </div>
+                            <div class="col-lg-6 col-md-8 col-sm-8 col-xs-12">
+                                <div class="info-flight row">
+                                    <div class=" col-lg-4 col-md-4 col-sm-3 col-xs-4">
+                                        <p class="local-flight">ALG</p>
+                                        <p class="date-flight">12/07/2019 <i class="fa fa-clock-o"></i> 12:50</p>
+                                    </div>
+                                    <div class="col-lg-3 col-md-2 col-sm-3 col-xs-4">
+                                        <div class="escal-ligne">
+                                            <span style=" line-height: 2.5; font-weight: bold; font-size: 12px;">Direct
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class=" col-lg-4 col-md-4 col-sm-3 col-xs-4">
+                                        <p class="local-flight">
+                                            PAR
+                                        </p>
+                                        <p class="date-flight">12/07/2019 <i class="fa fa-clock-o"></i> 12:50</p>
+                                    </div>
+                                    <div class=" col-lg-1 col-md-2 col-sm-2 col-xs-12">
+                                        <p class="flight-duration">12H52</p>
+                                    </div>
+                                </div>
+
+                                <div class="info-flight row">
+                                    <div class=" col-lg-4 col-md-4 col-sm-3 col-xs-4">
+                                        <p class="local-flight">ALG</p>
+                                        <p class="date-flight">12/07/2019 <i class="fa fa-clock-o"></i> 12:50</p>
+                                    </div>
+                                    <div class="col-lg-3 col-md-2 col-sm-3 col-xs-4">
+                                        <div class="escal-ligne">
+                                            <span style=" line-height: 2.5; font-weight: bold; font-size: 12px;">Direct
+                                                </span>
+                                        </div>
+                                    </div>
+                                    <div class=" col-lg-4 col-md-4 col-sm-3 col-xs-4">
+                                        <p class="local-flight">
+                                            PAR
+                                        </p>
+                                        <p class="date-flight">12/07/2019 <i class="fa fa-clock-o"></i> 12:50</p>
+                                    </div>
+                                    <div class=" col-lg-1 col-md-2 col-sm-2 col-xs-12">
+                                        <p class="flight-duration">12H52</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flight-price  col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                                <div class="price-container-select-btn row">
+                                    <div class="col-lg-12 col-md-5  col-sm-12 col-xs-12 element-center-xs element-center-sm element-center-lg element-left-md">
+                                        <div class="price-flight ">
+                                            <p>
+                                                <span class="priceVal">20 000</span>
+                                                <span class="currencyPriceFlight"> DZD</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-6 col-sm-12 col-xs-12 element-center-xs element-center-sm element-center-lg element-right-md">
+                                        <button type="button" class="btn btn-select ">Sélectionner</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="card-flight col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class=" row">
+                            <div class="vertical-center col-lg-3 col-md-4 col-sm-12 col-xs-12">
+                                <img class="img-responsive" src="./air-algerie-logo-og.png" alt="">
+                            </div>
+                            <div class="col-lg-6 col-md-8 col-sm-12 col-xs-12">
+                                <div class="info-flight row">
+                                    <div class=" col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                        <p class="local-flight">ALG</p>
+                                        <p class="date-flight">12/07/2019 <i class="fa fa-clock-o"></i> 12:50</p>
+                                    </div>
+                                    <div class="text-center col-lg-3 col-md-2 col-sm-12 col-xs-12">
+                                        <div class="escal-ligne">
+                                            <span style=" line-height: 2.5; font-weight: bold; font-size: 12px;">Direct
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class=" col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                        <p class="local-flight">
+                                            PAR
+                                        </p>
+                                        <p class="date-flight">12/07/2019 <i class="fa fa-clock-o"></i> 12:50</p>
+                                    </div>
+                                    <div class=" col-lg-1 col-md-2 col-sm-12 col-xs-12">
+                                        <p class="flight-duration">12H52</p>
+                                    </div>
+                                </div>
+                                <div class="info-flight row">
+                                    <div class=" col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                        <p class="local-flight">ALG</p>
+                                        <p class="date-flight">12/07/2019 <i class="fa fa-clock-o"></i> 12:50</p>
+                                    </div>
+                                    <div class="text-center col-lg-3 col-md-2 col-sm-12 col-xs-12">
+                                        <div class="escal-ligne">
+                                            <span style=" line-height: 2.5; font-weight: bold; font-size: 12px;">Direct
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class=" col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                        <p class="local-flight">
+                                            PAR
+                                        </p>
+                                        <p class="date-flight">12/07/2019 <i class="fa fa-clock-o"></i> 12:50</p>
+                                    </div>
+                                    <div class=" col-lg-1 col-md-2 col-sm-12 col-xs-12">
+                                        <p class="flight-duration">12H52</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flight-price  col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                <div class="price-container-select-btn row">
+                                    <div class="text-center col-lg-12 col-md-6 col-sm-6 col-xs-6 ">
+                                        <div class="price-flight ">
+
+                                            <p>
+                                                <span class="priceVal">20 000</span>
+                                                <span class="currencyPriceFlight">
+                                                    DZD
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="text-center col-lg-12 col-md-6 col-sm-6 col-xs-6 text-right">
+                                        <button type="button" class="btn btn-select ">Sélectionner</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+    <script>
+        var slider = $('#price_ranges');
+        var output = $('#price-container');
+
+        $(document).ready(function() {
+
+            slider.change(function() {
+                output.html(slider.val() + ' ');
+            });
+        });
+    </script>
+    <script src="./flights.js"></script>
+</body>
+
+</html>
